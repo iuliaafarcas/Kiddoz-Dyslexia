@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: dyslexia
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/recommendationDB
+    username: postgres
+    password: postgres
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 6
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  kafka:
+    bootstrap-servers: kiddoz-kafka-1:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+
+jwt:
+  public:
+    key: classpath:rsa.public.key
+  private:
+    key: classpath:rsa.private.key
